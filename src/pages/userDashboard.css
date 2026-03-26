@@ -1,0 +1,208 @@
+.dashboardPage {
+  min-height: 100vh;
+  padding: 1rem;
+  box-sizing: border-box;
+  background-color: #f2f2f2;
+  font-family: Arial, sans-serif;
+}
+
+.dashboardLoading {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+}
+
+.dashboardTopBar {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.dashboardTopItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.75rem;
+  border: 1px solid #222;
+  background-color: #fff;
+  word-break: break-word;
+}
+
+.dashboardTopAction {
+  justify-content: space-between;
+}
+
+.dashboardTopLabel {
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.dashboardLayout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 1rem;
+}
+
+.dashboardSidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+  border: 1px solid #222;
+  background-color: #fff;
+}
+
+.sidebarButton {
+  padding: 0.85rem;
+  border: 1px solid #222;
+  background-color: #f7f7f7;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sidebarButton.active {
+  background-color: #ddd;
+  font-weight: 700;
+}
+
+.dashboardContent {
+  min-width: 0;
+}
+
+.dashboardPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid #222;
+  background-color: #fff;
+}
+
+.dashboardPanel h2 {
+  margin: 0;
+}
+
+.dashboardForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.dashboardField {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.dashboardField input,
+.dashboardField textarea,
+.dashboardField select {
+  width: 100%;
+  padding: 0.75rem;
+  box-sizing: border-box;
+  border: 1px solid #222;
+  background-color: #fff;
+  font: inherit;
+}
+
+.dashboardButton {
+  width: fit-content;
+  padding: 0.75rem 1rem;
+  border: 1px solid #222;
+  background-color: #222;
+  color: #fff;
+  cursor: pointer;
+}
+
+.dashboardButton:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.logoutButton {
+  width: 100%;
+}
+
+.dashboardMessage {
+  margin: 0;
+  padding: 0.75rem;
+  border: 1px solid #222;
+}
+
+.dashboardMessage.success {
+  background-color: #e7f5eb;
+}
+
+.dashboardMessage.error {
+  background-color: #f8e6e6;
+}
+
+.panelHeaderRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.filterGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ticketList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ticketRow {
+  display: grid;
+  grid-template-columns: 1.2fr 2fr 1.3fr 1fr;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border: 1px solid #222;
+  background-color: #fff;
+}
+
+.ticketRowHeader {
+  font-weight: 700;
+  background-color: #efefef;
+}
+
+.emptyState {
+  padding: 1rem;
+  border: 1px solid #222;
+  background-color: #fafafa;
+}
+
+@media (max-width: 900px) {
+  .dashboardTopBar {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dashboardLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboardSidebar {
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 640px) {
+  .dashboardTopBar,
+  .ticketRow {
+    grid-template-columns: 1fr;
+  }
+
+  .panelHeaderRow,
+  .filterGroup,
+  .dashboardSidebar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

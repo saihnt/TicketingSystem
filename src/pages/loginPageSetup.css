@@ -1,0 +1,159 @@
+.overallContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ece7df;
+  height: 100vh;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+.loginContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background-color: #f9f7f3;
+  width: min(100%, 760px);
+  padding: 2rem;
+  margin: auto;
+  border: 2px solid #4f4a43;
+  border-radius: 8px;
+}
+
+.eyebrow {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #5f574d;
+}
+
+.headerContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px dashed #8f877b; 
+}
+
+.logoBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 76px;
+  height: 76px;
+  border: 2px solid #4f4a43;
+  background-color: #fff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.headerText h1,
+.headerText p {
+  margin: 0;
+}
+
+.subText {
+  margin-top: 0.35rem;
+  color: #5f574d;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.inputGroup label {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.inputGroup input {
+  padding: 0.8rem 0.9rem;
+  border: 2px solid #7a7268;
+  background-color: #f3f0ea;
+  font-size: 1rem;
+}
+
+.utilityRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.95rem;
+}
+
+.checkboxRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.supportLinks {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.supportLinks p {
+  margin: 0;
+}
+
+.statusMessage {
+  margin: 0;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid #7a7268;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+.statusMessage.success {
+  background-color: #e7f5eb;
+  color: #215a30;
+  border-color: #6ea37a;
+}
+
+.statusMessage.error {
+  background-color: #f8e6e6;
+  color: #7a2626;
+  border-color: #c08b8b;
+}
+
+.loginButton {
+  padding: 0.9rem 1rem;
+  border: 2px solid;
+  background-color: #4f4a43;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.loginButton:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+a {
+  color: #2f5f7a;
+}
+/*@media means that ts will apply to the page pag ung page size is 640 or less*/
+@media (max-width: 640px) {
+  .loginContainer {
+    padding: 1.25rem;
+  }
+
+  .headerContainer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .utilityRow,
+  .supportLinks {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
