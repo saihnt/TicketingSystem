@@ -1,7 +1,95 @@
 <<<<<<< HEAD
-# React + Vite
+# EN-Tech Support System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+
+About the system
+Specifications ng system
+Ano ginamit niyo Para sa system (ex nag laravel kayo ganun)
+Tapos important notes
+Such as anong version na ung system mo
+Ano ung nawala, ano ung nadagdagan
+May required ba para ma install ung system or ma access
+Sino sino gumawa if kailangan
+
+A ticketing management system for managing customer service inquiries.
+
+--------------------
+
+## About the System
+
+EN-tech Support System s a web-based application that allows users to submit support tickets and administrators to manage, respond, and to to trackresolutions. The system feayryres a responsive interface with role-based access to control.
+
+--------------------
+
+## Specifications
+
+### User-Features
+- Ticket submission with category selection
+- View all msubmitted tickets
+- Can filter tickets by status (Open, In Progrss, Solved, and Archived)
+- View detailed ticket information ----
+- Responsive mobil-friendly design
+
+### Admin Dashbboard
+- VIew all tickets from all users
+- Filter tickets by status (Open, In Progress, Solved, Archived)
+- Update ticket status and priority
+- Add responses (visible to users)
+- has a comment/reply system (for updates)
+- Admin action log
+- Archive option for solved tickets
+
+--------------------
+## System Used
+
+**React.js** 
+**Vite**
+**Supabase**
+**CSS3**
+**Git/GitHub 
+
+## System Version
+**Current Version:** `1.0.0`
+
+### What's Included:
+> User authentication (login/signup)
+> Email verification
+> Role-based access (Admmin/User)
+> Databased ticket operation
+> Responisve mobile design
+> Comment/response system
+> Admin comment management
+> Ticket filtering
+
+### What's Missing (for: future updates)
+> Notifications for ticket updates
+> File attachments for tickets
+> export tickets to files (e.g CSV, PDF)
+> Ticket analytics dashboard
+
+
+-----------------
+
+##  System Requirements
+
+### For Development
+- **Node.js** v18.0 or higher
+- **npm** v9.0 or higher
+- **Supabase** account (free tier available)
+- **Git** (for version control)
+
+### For Production
+- Any static hosting service (Vercel, GitHub Pages)
+- Supabase project (free tier sufficient for small teams)
+
+------------------
+
+##  Installation Guide
+
+### Step 1: Clone the Repository
+```bash
+git clone https://github.com/saihnt/TicketingSystem.git
+cd TicketingSystem
 
 Currently, two official plugins are available:
 
