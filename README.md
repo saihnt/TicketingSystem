@@ -1,16 +1,6 @@
 <<<<<<< HEAD
 # EN-Tech Support System
 
-
-About the system
-Specifications ng system
-Ano ginamit niyo Para sa system (ex nag laravel kayo ganun)
-Tapos important notes
-Such as anong version na ung system mo
-Ano ung nawala, ano ung nadagdagan
-May required ba para ma install ung system or ma access
-Sino sino gumawa if kailangan
-
 A ticketing management system for managing customer service inquiries.
 
 --------------------
