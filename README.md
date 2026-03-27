@@ -7,7 +7,7 @@ A ticketing management system for managing customer service inquiries.
 
 ## About the System
 
-EN-tech Support System s a web-based application that allows users to submit support tickets and administrators to manage, respond, and to to trackresolutions. The system feayryres a responsive interface with role-based access to control.
+EN-tech Support System is a web-based application that allows users to submit support tickets and administrators to manage, respond, and to track resolutions. The system features a responsive interface with role-based access to control.
 
 --------------------
 
@@ -17,7 +17,7 @@ EN-tech Support System s a web-based application that allows users to submit sup
 - Ticket submission with category selection
 - View all msubmitted tickets
 - Can filter tickets by status (Open, In Progrss, Solved, and Archived)
-- View detailed ticket information ----
+- View detailed ticket information
 - Responsive mobil-friendly design
 
 ### Admin Dashbboard
