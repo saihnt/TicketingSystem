@@ -36,7 +36,8 @@ EN-tech Support System s a web-based application that allows users to submit sup
 **Vite**,
 **Supabase**,
 **CSS3**,
-**Git/GitHub**
+**Git/GitHub**,
+**Vercel**
 
 ## System Version
 **Current Version:** `1.0.0`
