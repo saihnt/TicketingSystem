@@ -5,6 +5,8 @@ import './loginPageSetup.css'
 
 // This key is the name used when saving the remembered email in the browser.
 const rememberedUserKey = 'rememberedUser'
+const persistentSessionKey = 'rememberSession'
+const sessionScopeKey = 'sessionScopedLogin'
 
 // This object is the starting shape of the login form state.
 const initialForm = {
@@ -90,8 +92,12 @@ export default function LoginPage() {
           rememberMe: true,
         }),
       )
+      window.localStorage.setItem(persistentSessionKey, 'true')
+      window.sessionStorage.setItem(sessionScopeKey, 'true')
     } else {
       window.localStorage.removeItem(rememberedUserKey)
+      window.localStorage.removeItem(persistentSessionKey)
+      window.sessionStorage.setItem(sessionScopeKey, 'true')
     }
 
     setFormData((currentData) => ({

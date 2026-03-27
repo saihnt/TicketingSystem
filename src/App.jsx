@@ -7,6 +7,9 @@ import LoginPage from './pages/loginPage'
 import SignUp from './pages/signUp'
 import UserDashboard from './pages/userDashboard'
 
+const persistentSessionKey = 'rememberSession'
+const sessionScopeKey = 'sessionScopedLogin'
+
 // This wrapper blocks users from visiting routes they are not allowed to access.
 function ProtectedRoute({ session, allowedRoles, children }) {
   if (!session) {
@@ -32,11 +35,46 @@ export default function App() {
 
   // Loads the existing session once and listens for future login/logout changes.
   useEffect(() => {
+    const getNavigationType = () => {
+      const navigationEntry = window.performance
+        .getEntriesByType('navigation')
+        .find((entry) => entry.entryType === 'navigation')
+
+      if (navigationEntry && 'type' in navigationEntry) {
+        return navigationEntry.type
+      }
+
+      return 'navigate'
+    }
+
     // Fetches the current session that Supabase may already have stored locally.
     const loadSession = async () => {
       const {
         data: { session: currentSession },
       } = await supabase.auth.getSession()
+
+      const shouldRememberSession = window.localStorage.getItem(persistentSessionKey) === 'true'
+      const hasActiveSessionScope = window.sessionStorage.getItem(sessionScopeKey) === 'true'
+      const navigationType = getNavigationType()
+
+      // Non-persistent logins are allowed only during the in-memory app lifetime.
+      // A browser reload should clear them even if sessionStorage still exists.
+      if (currentSession && !shouldRememberSession && navigationType === 'reload') {
+        window.sessionStorage.removeItem(sessionScopeKey)
+        await supabase.auth.signOut()
+        setSession(null)
+        setIsLoadingSession(false)
+        return
+      }
+
+      // If a browser session was not marked as persistent and the tab session marker is gone,
+      // clear the recovered Supabase session so fresh loads after tab close do not restore it.
+      if (currentSession && !shouldRememberSession && !hasActiveSessionScope) {
+        await supabase.auth.signOut()
+        setSession(null)
+        setIsLoadingSession(false)
+        return
+      }
 
       setSession(currentSession)
       setIsLoadingSession(false)
