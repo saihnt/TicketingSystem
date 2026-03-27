@@ -42,20 +42,20 @@ EN-tech Support System s a web-based application that allows users to submit sup
 **Current Version:** `1.0.0`
 
 ### What's Included:
-> User authentication (login/signup)
-> Email verification
-> Role-based access (Admmin/User)
-> Databased ticket operation
-> Responisve mobile design
-> Comment/response system
-> Admin comment management
-> Ticket filtering
+- User authentication (login/signup)
+- Email verification
+- Role-based access (Admmin/User)
+- Databased ticket operation
+- Responisve mobile design
+- Comment/response system
+- Admin comment management
+- Ticket filtering
 
 ### What's Missing (for: future updates)
-> Notifications for ticket updates
-> File attachments for tickets
-> export tickets to files (e.g CSV, PDF)
-> Ticket analytics dashboard
+- Notifications for ticket updates
+- File attachments for tickets
+- export tickets to files (e.g CSV, PDF)
+- Ticket analytics dashboard
 
 
 -----------------
