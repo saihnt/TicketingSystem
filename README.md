@@ -32,11 +32,11 @@ EN-tech Support System s a web-based application that allows users to submit sup
 --------------------
 ## System Used
 
-**React.js** 
-**Vite**
-**Supabase**
-**CSS3**
-**Git/GitHub 
+**React.js**, 
+**Vite**,
+**Supabase**,
+**CSS3**,
+**Git/GitHub**
 
 ## System Version
 **Current Version:** `1.0.0`
