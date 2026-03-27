@@ -13,7 +13,7 @@ const ticketCategories = [
   'Report a Bug',
 ]
 
-const ticketStatuses = ['Open', 'In Progress', 'Solved']
+const ticketStatuses = ['Open', 'In Progress', 'Resolved']
 
 const initialTicketForm = {
   title: '',
@@ -21,30 +21,18 @@ const initialTicketForm = {
   category: ticketCategories[0],
 }
 
-// This dashboard loads the user's profile and tickets, and lets them create new tickets.
 export default function UserDashboard() {
-  // Keeps track of the signed-in user from Supabase Auth.
   const [user, setUser] = useState(null)
-  // Stores the profile row from the public.profiles table.
   const [profile, setProfile] = useState(null)
-  // Stores the current list of tickets owned by the user.
   const [tickets, setTickets] = useState([])
-  // Controls which dashboard panel is visible on the page.
   const [activeView, setActiveView] = useState('submit')
-  // Stores the form values used to create a new ticket.
   const [ticketForm, setTicketForm] = useState(initialTicketForm)
-  // Controls the status filter used in the "View Tickets" panel.
   const [ticketFilter, setTicketFilter] = useState('All')
-  // Controls the general loading state for initial profile/ticket fetches.
   const [isLoading, setIsLoading] = useState(true)
-  // Tracks whether the ticket creation request is currently running.
   const [isSubmittingTicket, setIsSubmittingTicket] = useState(false)
-  // Stores success or error messages related to ticket actions.
   const [ticketStatus, setTicketStatus] = useState({ type: '', message: '' })
-  // Lets the dashboard send the user back to the login page after logout.
   const navigate = useNavigate()
 
-  // On first load, fetch the current auth user, ensure a profile row exists, and load tickets.
   useEffect(() => {
     const loadDashboardData = async () => {
       const {
@@ -119,17 +107,14 @@ export default function UserDashboard() {
     loadDashboardData()
   }, [])
 
-  // Handles changes for the ticket creation form.
   const handleTicketChange = (event) => {
     const { name, value } = event.target
-
     setTicketForm((currentForm) => ({
       ...currentForm,
       [name]: value,
     }))
   }
 
-  // Creates a new ticket with the default status of Open and refreshes the local ticket list.
   const handleTicketSubmit = async (event) => {
     event.preventDefault()
     setTicketStatus({ type: '', message: '' })
@@ -141,6 +126,7 @@ export default function UserDashboard() {
       description: ticketForm.description.trim(),
       category: ticketForm.category,
       status: 'Open',
+      user_name: `${profile?.first_name} ${profile?.last_name}`,
     }
 
     const { data, error } = await supabase.from('tickets').insert(newTicket).select().single()
@@ -153,35 +139,29 @@ export default function UserDashboard() {
 
     setTickets((currentTickets) => [data, ...currentTickets])
     setTicketForm(initialTicketForm)
-    setTicketStatus({ type: 'success', message: 'Ticket submitted successfully.' })
+    setTicketStatus({ type: 'success', message: 'Ticket submitted successfully!' })
     setActiveView('view')
     setIsSubmittingTicket(false)
+    
+    setTimeout(() => {
+      setTicketStatus({ type: '', message: '' })
+    }, 3000)
   }
 
-  // Creates the shorter preview text used in the ticket list rows.
   const truncateDescription = (description) => {
-    if (description.length <= 50) {
-      return description
-    }
-
-    return `${description.slice(0, 47)}...`
+    if (description.length <= 60) return description
+    return `${description.slice(0, 57)}...`
   }
 
-  // Formats the created_at value into something easier to read in the UI.
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleString()
   }
 
-  // Applies the selected ticket filter before rendering the ticket rows.
   const filteredTickets = tickets.filter((ticket) => {
-    if (ticketFilter === 'All') {
-      return true
-    }
-
+    if (ticketFilter === 'All') return true
     return ticket.status === ticketFilter
   })
 
-  // Ends the current Supabase session and returns the user to the login page.
   const handleLogout = async () => {
     await supabase.auth.signOut()
     navigate('/login')
@@ -196,7 +176,7 @@ export default function UserDashboard() {
       <header className="dashboardTopBar">
         <div className="dashboardTopItem">
           <span className="dashboardTopLabel">User ID</span>
-          <span>{profile?.id ?? 'Unavailable'}</span>
+          <span>{profile?.id?.slice(0, 8) ?? 'Unavailable'}</span>
         </div>
         <div className="dashboardTopItem">
           <span className="dashboardTopLabel">First Name</span>
@@ -225,14 +205,14 @@ export default function UserDashboard() {
             className={`sidebarButton ${activeView === 'submit' ? 'active' : ''}`}
             onClick={() => setActiveView('submit')}
           >
-            Ticket Submission
+             Ticket Submission
           </button>
           <button
             type="button"
             className={`sidebarButton ${activeView === 'view' ? 'active' : ''}`}
             onClick={() => setActiveView('view')}
           >
-            View Tickets
+             View Tickets ({filteredTickets.length})
           </button>
         </aside>
 
@@ -240,33 +220,11 @@ export default function UserDashboard() {
           {activeView === 'submit' ? (
             <section className="dashboardPanel">
               <h2>Ticket Submission</h2>
+              <p style={{ color: '#6c757d', fontSize: '0.85rem', marginBottom: '1rem' }}>
+                Submit your issue and we'll get back to you shortly
+              </p>
 
-              <form className="dashboardForm" onSubmit={handleTicketSubmit}>
-                <div className="dashboardField">
-                  <label htmlFor="title">Ticket Title</label>
-                  <input
-                    id="title"
-                    name="title"
-                    type="text"
-                    value={ticketForm.title}
-                    onChange={handleTicketChange}
-                    required
-                  />
-                </div>
-
-                <div className="dashboardField">
-                  <label htmlFor="description">Ticket Description</label>
-                  <textarea
-                    id="description"
-                    name="description"
-                    value={ticketForm.description}
-                    onChange={handleTicketChange}
-                    rows="6"
-                    required
-                  />
-                </div>
-
-                <div className="dashboardField">
+              <div className="dashboardField">
                   <label htmlFor="category">Ticket Category</label>
                   <select
                     id="category"
@@ -282,8 +240,39 @@ export default function UserDashboard() {
                   </select>
                 </div>
 
+              <form className="dashboardForm" onSubmit={handleTicketSubmit}>
+                <div className="dashboardField">
+                  <label htmlFor="title">Ticket Title</label>
+                  <input
+                    id="title"
+                    name="title"
+                    type="text"
+                    placeholder="What's your issue?"
+                    value={ticketForm.title}
+                    onChange={handleTicketChange}
+                    required
+                  />
+                </div>
+
+                
+
+                <div className="dashboardField">
+                  <label htmlFor="description">Ticket Description</label>
+                  <textarea
+                    id="description"
+                    name="description"
+                    placeholder="Please provide detailed information about your issue..."
+                    value={ticketForm.description}
+                    onChange={handleTicketChange}
+                    rows="6"
+                    required
+                  />
+                </div>
+
                 {ticketStatus.message ? (
-                  <p className={`dashboardMessage ${ticketStatus.type}`}>{ticketStatus.message}</p>
+                  <div className={`dashboardMessage ${ticketStatus.type}`}>
+                    {ticketStatus.message}
+                  </div>
                 ) : null}
 
                 <button type="submit" className="dashboardButton" disabled={isSubmittingTicket}>
@@ -295,15 +284,14 @@ export default function UserDashboard() {
             <section className="dashboardPanel">
               <div className="panelHeaderRow">
                 <h2>View Tickets</h2>
-
                 <div className="filterGroup">
-                  <label htmlFor="ticketFilter">Filter</label>
+                  <label htmlFor="ticketFilter">Filter by status:</label>
                   <select
                     id="ticketFilter"
                     value={ticketFilter}
                     onChange={(event) => setTicketFilter(event.target.value)}
                   >
-                    <option value="All">All</option>
+                    <option value="All">All Tickets</option>
                     {ticketStatuses.map((status) => (
                       <option key={status} value={status}>
                         {status}
@@ -324,14 +312,30 @@ export default function UserDashboard() {
                 {filteredTickets.length > 0 ? (
                   filteredTickets.map((ticket) => (
                     <div key={ticket.id} className="ticketRow">
-                      <span>{ticket.title}</span>
-                      <span>{truncateDescription(ticket.description)}</span>
-                      <span>{formatDate(ticket.created_at)}</span>
-                      <span>{ticket.status}</span>
+                      <span data-label="Title:">{ticket.title}</span>
+                      <span data-label="Description:">{truncateDescription(ticket.description)}</span>
+                      <span data-label="Date:">{formatDate(ticket.created_at)}</span>
+                      <span data-label="Status:">
+                        <span style={{
+                          display: 'inline-block',
+                          padding: '0.25rem 0.75rem',
+                          borderRadius: '20px',
+                          fontSize: '0.7rem',
+                          fontWeight: '600',
+                          background: ticket.status === 'Open' ? '#f8d7da' : 
+                                       ticket.status === 'In Progress' ? '#fff3cd' : '#d4edda',
+                          color: ticket.status === 'Open' ? '#721c24' : 
+                                 ticket.status === 'In Progress' ? '#856404' : '#155724'
+                        }}>
+                          {ticket.status}
+                        </span>
+                      </span>
                     </div>
                   ))
                 ) : (
-                  <div className="emptyState">No tickets found for this filter.</div>
+                  <div className="emptyState">
+                    <p>No tickets found for this filter.</p>
+                  </div>
                 )}
               </div>
             </section>
