@@ -16,7 +16,7 @@ EN-tech Support System is a web-based application that allows users to submit su
 ### User-Features
 - Ticket submission with category selection
 - View all msubmitted tickets
-- Can filter tickets by status (Open, In Progrss, Solved, and Archived)
+- Can filter tickets by status (Open, In Progress, Solved, and Archived)
 - View detailed ticket information
 - Responsive mobil-friendly design
 
